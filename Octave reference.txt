@@ -1,0 +1,239 @@
+Octave functions
+
+--------------------------------
+
+Arithmetic
+
+x+x
+
+x-x
+
+x*x
+
+x/x
+
+x^x
+
+--------------------------------
+
+Comment
+
+% xxxxxxx
+
+--------------------------------
+
+Logic 
+
+x == x		equal
+
+x ~= x		not equal
+
+x >= x		greater than or equal
+
+x && x		and
+
+x || x		or
+
+xor(x,x)	xor
+
+--------------------------------
+
+Rewrite prompt
+
+PS1('string to display')
+
+--------------------------------
+
+Suppress output
+
+;
+
+--------------------------------
+
+Assignment
+
+x = 3
+[x, y] = max(X)		unpacking
+
+--------------------------------
+
+Display
+
+disp(x);
+
+disp(sprintf('string xxxx' %0.2f', x))		string substitution with formatting
+
+format long		display more digits by default
+format short
+
+--------------------------------
+
+Matrix Creation
+
+X = [1 2; 3 4; 5 6]		";" means next row
+						returns X =
+									1 2
+									3 4
+									5 6
+
+X(i,j)					get element in row i, column j
+X(i,:)					":" means get all
+X([i j], :)				get all columns from rows i or j
+
+X(i,j) = [m,n...]		assign/overwrite selection with new matrix (of correct size!)
+
+X = [X, [i; j; ...]]	append column to X (of correct size!)
+
+X = [Y Z]				concatenate two (same-size) matrices
+X = [Y; Z]
+
+X(:)					flatten X into a column vector
+
+X = i:step:j			with range, inclusive
+X = i:j					default minimum step of 1
+
+ones(i,j)				all ones of size i by j
+zeros(i,j)				all zeros
+eye(i)					create identity matrix of size i
+
+i * maxtrix				scales matrix
+
+rand(i,j)				random values 0 to 1
+randn(i,j)				random values that follow normal distribution -1 to 1
+
+size(X)					returns size of matrix (row x column) as a 1x2 matrix
+size(X, 1)				get number of matrix rows
+size(X, 2)				get number of matrix columns
+
+length(X)				get longest dimension of matrix (only used on vectors)
+
+magic(i)				return matrix of size i where rows/columns/diagonals sum to same
+
+--------------------------------
+
+Matrix Operations
+
+X * Y					multiply matrices together
+
+X .* Y					"." means element-wise
+X .^ i
+i ./ X					get reciprocals
+log(X)					e-w log
+exp(X)					e-w e^X
+abs(X)					e-w absolute value
+X + i					e-w add i
+
+X'						transpose
+
+[v, i] = max(X)			return max value and index of value if X is row
+						return max of each column if X has more rows
+max(X,[],1)				get max by column
+max(X,[],2)				get max by row
+max(max(X))				get max across whole X
+max(X(:))
+
+X < i					e-w comparison return matrix of 0/1 (T/F)
+
+[r, c] = find(X >= i)	get matrix of all element coordinates that satisfy condition
+
+sum(X)					get sum of all elements by column in X unless single row
+sum(X, i)				get sum by column/row dimension
+prod(X)					get product of all elements by column in X unless single row
+
+floor(X)				e-w rounding
+ceil(X)					
+
+rand(i)					get matrix of size of random values 0 to 1
+
+flipud(X)				flip X by x-axis
+
+pinv(X)					get inverse of X (X * 1/X = I)
+
+
+
+
+--------------------------------
+
+General OS commands
+
+pwd
+cd
+ls
+
+load filename.xxx		load filename
+load('filename.xxx')
+
+who						display all variables in memory
+whos					detailed view of all variables
+
+clear x					delete variable
+clear					delete all variables
+
+X = Y(i:j)				set X equal to elements i to j of matrix Y
+
+save filename.mat X		save X to filename.mat in binary
+save fn.txt X -ascii	save as .txt in ASCII
+
+addpath('directory')	add directories for octave to search for command names
+
+--------------------------------
+
+Plotting
+
+hist(X [, i])			creates histogram with i bars
+
+y1 = sin(2 * pi * 4 * x)
+
+plot(x, y1)				writes plot to window	
+plot(x, y1, 'r')		change plot color
+
+hold on 				locks current plot in window
+
+xlabel('str')			label x-axis
+ylabel('str')			label y-axis
+
+legend('str', 'str')	add legend (order?)
+title('str')			add title
+
+print -dpng 'fn.png'	save as png to pwd
+
+figure(i)				open multiple plot windows
+
+subplot(x,y,i)			set plot window as x,y grid, writing to element i
+
+axis([i j m n])			set i-j range for x-axis, m-n range for y-axis
+
+imagesc(X),				comma chain commands
+colorbar,
+colormap gray			plot matrix values as a heatmap
+
+clf						clear a figure
+close					close plots
+
+--------------------------------
+
+Control Flow
+
+v = zeroes(10,1)
+for i=1:10,
+	v(i) = 2^i;
+end;
+
+while i <= 5,
+	v(i) = 100;
+	i = i+1;
+end;
+
+if i == 3,
+	break;
+elseif i == 4,
+	disp('Some string');
+else
+	disp('');
+end;
+
+
+function y = functionName(x)		create functionName.m file to store function definition
+y = x^2;
+
+
