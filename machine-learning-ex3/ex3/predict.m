@@ -21,12 +21,20 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Add bias nodes to input layer
+A1 = [ones(m, 1) X];
 
+% Calculate hidden layer
+A2 = sigmoid(Theta1 * A1');
+% Add bias nodes to hidden layer
+A2 = [ones(1, size(A2, 2)); A2];
 
+% Calculate output layer == columns of probabilities
+A3 = sigmoid(Theta2 * A2);
 
-
-
-
+% Reduce rows to highest probabilities and store
+% column index, which is the predicted class
+[v, p] = max(A3', [], 2);
 
 
 % =========================================================================

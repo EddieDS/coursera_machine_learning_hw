@@ -85,4 +85,5 @@ pause;
 pred = predictOneVsAll(all_theta, X);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
-
+fprintf('Expected accuracy (approx): 94.9\n');
+fprintf('\n');
