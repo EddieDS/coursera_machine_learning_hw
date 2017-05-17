@@ -12,17 +12,11 @@ g = zeros(size(z));
 % Instructions: Compute the gradient of the sigmoid function evaluated at
 %               each value of z (z can be a matrix, vector or scalar).
 
+% store it so we don't have to calculate it again
+g_z = sigmoid(z);
 
-
-
-
-
-
-
-
-
-
-
+% equation for g prime
+g = g_z .* (1 - g_z);
 
 
 % =============================================================

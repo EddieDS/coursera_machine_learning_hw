@@ -62,22 +62,59 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Theta1 dimension = [25, 401]
+% Theta2 dimension = [10, 26]
 
+% Recode y into vectors of 0's & 1
+% Dimension: [5000, 10]
+Y = repmat([1:num_labels], m, 1) == y;
 
+% Add bias 
+% Dimension: [5000, 401]
+A1 = [ones(m, 1) X];
 
+% Calculate hidden layer
+% Dimension: [25, 401] * [401, 5000] = [25, 5000]
+Z2 = Theta1 * A1';
+A2 = sigmoid(Z2);
 
+% Add bias 
+% Dimension: [26, 5000]
+A2 = [ones(1, size(A2, 2)); A2];
 
+% Calculate output layer
+% Dimension: [10, 26] * [26, 5000] = [10, 5000]
+Z3 = Theta2 * A2;
+A3 = sigmoid(Z3);
 
+% [10, 5000] * [5000, 10] = [10, 10]
+J = -(1 / m) * (trace((Y' * log(A3)')) + trace((1 - Y)' * log(1 - A3)'));
 
+% Add regularization for cost
+J = J + ((lambda / (2 * m)) * (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))));
 
+% Calculate delta for output layer
+% Dimension: [10, 5000]
+delta3 = A3 - Y';
 
+% Calculate delta for hidden layer
+% Remove bias unit from calculation
+% Dimension: [26-1, 10] * [10, 5000] .* [25, 5000] = [25, 5000]
+delta2 = (Theta2'(2:end, :) * delta3) .* sigmoidGradient(Z2);
 
+% Dimension: [10, 5000] * [5000, 26] = [10, 26]
+Delta2 = (1 / m) .* (delta3 * A2');
+% Add regularization, exclude bias units
+% Dimension: [10, 26] + [10, 1+25]
+Theta2_reg = (lambda / m) .* Theta2(:, 2:end);
+Theta2_grad = Delta2 + [zeros(rows(Theta2), 1) Theta2_reg];
 
-
-
-
-
-
+% Dimension: [25, 5000] * [5000, 401] = [25, 401]
+Delta1 = (1 / m) .* (delta2 * A1);
+% Add regularization, exclude bias units
+% Dimension: [25, 401] + [25, 1+400]
+Theta1_reg = (lambda / m) .* Theta1(:, 2:end);
+Theta1_grad = Delta1 + [zeros(rows(Theta1), 1) Theta1_reg];
 
 
 % -------------------------------------------------------------
