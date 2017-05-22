@@ -19,15 +19,15 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+% save difference vector for reuse
+d = (X * theta) - y;
+% thetas without theta0 for regularization
+t = theta(2:end, :);
 
+% assumption: d, t are 1-dimensional
+J = ((1 / (2 * m)) * d' * d) + (lambda / (2 * m)) * sum(t .^ 2);
 
-
-
-
-
-
-
-
+grad = ((1 / m) * X' * d) + ((lambda / m) * [0; t]);
 
 
 % =========================================================================

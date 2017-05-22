@@ -15,9 +15,9 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
-
-
-
+% duplicate X across p columns and
+% raise each column to the column's index
+X_poly = repmat(X, 1, p) .^ [1:p];
 
 
 % =========================================================================

@@ -53,11 +53,21 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+for i = 1:m
 
+	% Acquire thetas based on training data sets of i size
+	theta = trainLinearReg(X(1:i, :), y(1:i), lambda);
 
+	% Lambdas set to 0 because they are built into the thetas already
+	% Calculate cost of using trained thetas on said data set
+	[J, discard] = linearRegCostFunction(X(1:i, :), y(1:i), theta, 0);
+	error_train(i) = J;
 
+	% Calculate general cost of trained thetas on entire validation set
+	[Jval, discard] = linearRegCostFunction(Xval, yval, theta, 0);
+	error_val(i) = Jval;
 
-
+end
 
 % -------------------------------------------------------------
 

@@ -39,13 +39,18 @@ error_val = zeros(length(lambda_vec), 1);
 %
 %
 
+for i = 1:length(lambda_vec)
 
+	% Acquire thetas from training on given lambda
+	theta = trainLinearReg(X, y, lambda_vec(i));
 
+	% Get cost of trained thetas on training set and validation set
+	% Set lambdas here to 0 because the regularization term is
+	% accounted for already when training the thetas.
+	error_train(i) = linearRegCostFunction(X, y, theta, 0);
+	error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
 
-
-
-
-
+end
 
 
 % =========================================================================
