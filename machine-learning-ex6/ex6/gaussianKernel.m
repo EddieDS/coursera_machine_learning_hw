@@ -16,9 +16,14 @@ sim = 0;
 %
 %
 
+% We want the length of the vector that represents the distance
+% between x1 and x2. The formula for the Gaussian kernel uses
+% norm(x1 - x2)^2 as the numerator, and is equivalent to using
+% sum((x1 - x2).^2).
+% Norm is the length/size of a vector, aka 'magnitude'.
 
-
-
+% sim = exp(-(sum((x1 - x2) .^ 2)) / (2 * sigma ^ 2));
+sim = exp(-(norm(x1 - x2) ^ 2) / (2 * sigma ^ 2));
 
 
 % =============================================================
